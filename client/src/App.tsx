@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
-import "./App.css";
+// import "./App.css";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { Home, Login } from "./pages";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const navigate = useNavigate();
+	const [user, setUser] = useState(false);
+
+	useEffect(() => {
+		if (!user) navigate("/login");
+	}, []);
 
 	return (
-		<div className="App">
-			<h1 className="text-3xl bg-red-500 font-bold underline">Hello world!</h1>
-		</div>
+		<Routes>
+			<Route path="/*" element={<Home />} />
+			<Route path="/login" element={<Login />} />
+		</Routes>
 	);
 }
 
