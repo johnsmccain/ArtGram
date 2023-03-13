@@ -9,7 +9,7 @@ function App() {
 	const [user, setUser] = useState(false);
 
 	useEffect(() => {
-		if (!user) navigate("/login");
+		// if (!user) navigate("/login");
 	}, []);
 
 	return (
