@@ -18,6 +18,10 @@ class RedisClient {
       );
       this.isClientConnected = false;
     });
+    this.client.on('connect', () => {
+      console.log('Redis Client connected successfully');
+      this.isClientConnected = true;
+    });
   }
   // Check connection status and reports
   isAlive() {
@@ -52,4 +56,4 @@ class RedisClient {
   }
 }
 const redisClient = new RedisClient();
-module.exports = redisClient;
+export default redisClient;
