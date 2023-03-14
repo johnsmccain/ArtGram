@@ -1,4 +1,0 @@
-const User = {
-    name: "John"
-
-}

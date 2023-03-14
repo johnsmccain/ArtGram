@@ -3,13 +3,14 @@ import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../components";
-
+import logo from "../images/06.png";
+import { User } from "../data";
 const Home = () => {
 	const [toggle, setToggle] = useState(false);
 	return (
 		<div className="h-screen bg-gray-50 flex md:flex-row flex-col duration-75 transition-height ease-out">
 			<div className="h-screen hidden md:flex flex-initial">
-				<Sidebar />
+				<Sidebar user={User} />
 			</div>
 
 			<div className="flex md:hidden flex-row  w-full">
@@ -20,10 +21,10 @@ const Home = () => {
 						className="cursor-pointer"
 					/>
 					<Link to="/">
-						<p>Logo</p>
+						<img src={logo} alt="logo" className="w-28" />
 					</Link>
 					<Link to={`/user-profile${323}`}>
-						<p>Profile</p>
+						<img src={User.image} alt="User" className="w-9" />
 					</Link>
 				</div>
 				{toggle && (
@@ -34,7 +35,7 @@ const Home = () => {
 								onClick={() => setToggle(false)}
 							/>
 						</div>
-						<Sidebar />
+						<Sidebar user={User} closeToggle={setToggle} />
 					</div>
 				)}
 			</div>
