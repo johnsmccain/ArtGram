@@ -10,11 +10,11 @@ const breakPoint = {
 	1000: 2,
 	500: 1,
 };
-const Layout = ({ gallary }: any) => {
+const Layout = ({ gallery }: any) => {
 	return (
-		<Masonry className="fles animate-slide-fwd" breakpointCols={breakPoint}>
-			{gallary?.map((art: any, index: number) => (
-				<Art key={index} art={art} />
+		<Masonry className="flex animate-slide-fwd" breakpointCols={breakPoint}>
+			{gallery?.map((art: any, index: number) => (
+				<Art key={index} art={art} className="w-max" />
 			))}
 		</Masonry>
 	);

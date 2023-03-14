@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { Sidebar } from "../components";
+import { Link, Route, Routes } from "react-router-dom";
+import { Profile, Sidebar } from "../components";
 import logo from "../images/06.png";
 import { User } from "../data";
+import Gallery from "../containers/Gallery";
 const Home = () => {
 	const [toggle, setToggle] = useState(false);
 	return (
@@ -39,7 +40,12 @@ const Home = () => {
 					</div>
 				)}
 			</div>
-			<div className="pb-2">User Or Arts</div>
+			<div className="pb-2 flex-1 h-screen overflow-y-scroll">
+				<Routes>
+					<Route path="/user-profile/:userId" element={<Profile />} />
+					<Route path="/" element={<Gallery />} />
+				</Routes>
+			</div>
 		</div>
 	);
 };

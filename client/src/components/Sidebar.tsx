@@ -32,6 +32,7 @@ const Sidebar = ({ closeToggle, user }: any) => {
 					<h3 className="mt-2 px-5 text-base">Discover more</h3>
 					{categories.slice(0, categories.length - 1).map((cat, key) => (
 						<NavLink
+							key={key}
 							to={`/category/${cat.name}`}
 							className={({ isActive }) =>
 								isActive ? isActiveStyle : isNotActiveStyle
