@@ -9,15 +9,13 @@ class UsersController {
     }
     const savedUser = await User.findOne({ email: email });
     if (savedUser) {
-      res.json({ error: 'Email already exists' });
+      res.status(400).json({ error: 'Email already exists' });
       return;
     }
-    console.log(`The password saved is ${typeof password}`);
     const hash = crypto.createHash('sha256').update(password).digest('hex');
-    console.log(hash);
     const user = await User.create({ name, email, password: hash });
     user.save();
-    res.status(200).send({
+    res.status(201).send({
       id: `${user.id}`,
       name: `${user.name}`,
       password: `${user.password}`,

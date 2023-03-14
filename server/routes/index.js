@@ -8,5 +8,6 @@ router.get('/', sayHello);
 
 router.post('/signup', UsersController.postNewUser);
 router.get('/login', AuthController.logIn);
+router.get('/logout', AuthController.logOut);
 
 export default router;
