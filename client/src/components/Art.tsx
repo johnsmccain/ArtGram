@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdDownloadForOffline } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { arts, User } from "../data";
 
 const likeBtnStyles =
@@ -10,6 +10,7 @@ const likeBtnStyles =
 const Art = ({ art }: any) => {
 	const [artHover, setArtHover] = useState(false);
 	const [likeArt, setLikeArt] = useState(false);
+	const navigate = useNavigate();
 	let liked = art?.likes.filter((item: any) => item?.id === User.id);
 	liked = liked.length > 0 ? liked : [];
 	// console.log(liked);
@@ -18,6 +19,7 @@ const Art = ({ art }: any) => {
 			<div
 				onMouseEnter={() => setArtHover(true)}
 				onMouseLeave={() => setArtHover(false)}
+				onClick={() => navigate(`/art-detail/${art.id}`)}
 				className="relative cursor-zoom-in hover:shadow-md w-auto rounded-lg transition-all overflow-hidden ease-in-out duration-500">
 				{art?.image && (
 					<img src={art.image} alt="art" className="rounded-lg w-full" />

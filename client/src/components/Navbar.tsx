@@ -12,6 +12,8 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
 					type="text"
 					placeholder="Search"
 					onFocus={() => navigate("/search")}
+					value={searchTerm}
+					onChange={e => setSearchTerm(e?.target?.value)}
 					className="p-2 w-full bg-white outline-none"
 				/>
 			</div>

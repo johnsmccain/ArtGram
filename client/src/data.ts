@@ -18,6 +18,7 @@ export const User = {
 
 export const arts = [
     {
+        id:1,
         name: "ba",
         image: pic1,
         desc: "One sweet image",
@@ -31,6 +32,7 @@ export const arts = [
         category: "culture"
     },
     {
+        id:2,
         name: "ba",
         image: pic2,
         desc: "One sweet image",
@@ -44,6 +46,7 @@ export const arts = [
         category: "nature"
     },
     {
+        id:3,
         name: "ba",
         image: pic10,
         desc: "One sweet image",
@@ -57,6 +60,7 @@ export const arts = [
         category: "culture"
     },
     {
+        id:4,
         name: "ba",
         image: pic3,
         desc: "One sweet image",
@@ -70,6 +74,7 @@ export const arts = [
         category: "culture"
     },
     {
+        id:5,
         name: "ba",
         image: pic9,
         desc: "One sweet image",
@@ -83,6 +88,7 @@ export const arts = [
         category: "culture"
     },
     {
+        id:6,
         name: "ba",
         image: pic4,
         desc: "One sweet image",
@@ -91,6 +97,7 @@ export const arts = [
         category: "cars"
     },
     {
+        id:7,
         name: "ba",
         image: pic5,
         desc: "One sweet image",
@@ -99,6 +106,7 @@ export const arts = [
         category: "cars"
     },
     {
+        id:8,
         name: "ba",
         image: pic6,
         desc: "One sweet image",
@@ -107,6 +115,7 @@ export const arts = [
         category: "cars"
     },
     {
+        id:9,
         name: "ba",
         image: pic7,
         desc: "One sweet image",
@@ -115,6 +124,7 @@ export const arts = [
         category: "cars"
     },
     {
+        id:10,
         name: "ba",
         image: pic8,
         desc: "One sweet image",
