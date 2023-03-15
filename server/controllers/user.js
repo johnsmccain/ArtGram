@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import User from '../models/user';
 
 class UsersController {
-  static async postNewUser(req, res) {
+  static async createUser(req, res) {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
       res.status(400).send({ error: 'Submit all required fields' });

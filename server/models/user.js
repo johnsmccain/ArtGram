@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = mongoose.Schema(
   {
@@ -14,9 +15,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    resetToken: { type: String },
-    profileImage: String,
+    profileImage: { type: String },
+    Followers: [{ type: ObjectId, ref: 'User' }],
+    Following: [{ type: ObjectId, ref: 'User' }],
   },
+
   { timestamps: true }
 );
 

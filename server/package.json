@@ -20,7 +20,7 @@
 		"image-thumbnail": "^1.0.15",
 		"mime-types": "^2.1.35",
 		"mongoose": "^7.0.1",
-		"redis": "^4.6.5",
+		"redis": "^2.8.0",
 		"sha1": "^1.1.1",
 		"uuid": "^9.0.0"
 	},
