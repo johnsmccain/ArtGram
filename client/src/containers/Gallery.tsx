@@ -18,10 +18,10 @@ const Gallery = () => {
 			<div className="h-full">
 				<Routes>
 					<Route path="/" element={<Feed />} />
-					<Route path="/category/:categoryId" element={<Feed />} />
-					<Route path="/art-detail/:artId" element={<Feed />} />
+					<Route path="category/:categoryId" element={<Feed />} />
+					<Route path="art-detail/:artId" element={<Feed />} />
 					<Route path="/create-art" element={<CreateArt />} />
-					<Route path="/search" element={<Search />} />
+					<Route path="/search/" element={<Search />} />
 				</Routes>
 			</div>
 		</div>
