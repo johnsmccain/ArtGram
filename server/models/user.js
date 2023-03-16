@@ -16,8 +16,18 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     profileImage: { type: String },
-    Followers: [{ type: ObjectId, ref: 'User' }],
-    Following: [{ type: ObjectId, ref: 'User' }],
+    Followers: [
+      {
+        type: ObjectId,
+        ref: 'User',
+      },
+    ],
+    Following: [
+      {
+        type: ObjectId,
+        ref: 'User',
+      },
+    ],
   },
 
   { timestamps: true }

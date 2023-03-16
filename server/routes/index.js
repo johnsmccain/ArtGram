@@ -17,10 +17,13 @@ router.get('/login', AuthController.logIn);
 router.get('/logout', AuthController.logOut);
 
 router.post('/art', isLoggedIn, ArtController.postArt);
-router.delete('/art/:id', isLoggedIn, ArtController.deleteArt);
-router.put('/art/:id/like', isLoggedIn, ArtController.like);
-router.put('/art/:id/unlike', isLoggedIn, ArtController.unlike);
+router.delete('/arts/:id', isLoggedIn, ArtController.deleteArt);
+router.put('/arts/:id/like', isLoggedIn, ArtController.like);
+router.put('/arts/:id/unlike', isLoggedIn, ArtController.unlike);
 
-router.get('/arts', isLoggedIn, ArtController.artsByUser);
+router.get('/arts/:tag', isLoggedIn, ArtController.getByTags);
+
+router.get('/arts', isLoggedIn, ArtController.myArts);
+router.get('/user/likes', isLoggedIn, UsersController.myLikes);
 
 export default router;

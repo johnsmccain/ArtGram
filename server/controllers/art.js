@@ -1,13 +1,9 @@
-import crypto from 'crypto';
 import Art from '../models/art';
-import User from '../models/user';
-import redisClient from '../utils/redis';
 
 class ArtController {
   static async postArt(req, res) {
-    console.log(req.userId);
-    const { name, image, desc } = req.body;
-    if (!name || !image || !desc) {
+    const { name, image, tags, description } = req.body;
+    if (!name || !image || !description) {
       res.status(400).send({ error: 'Please submit all required fields' });
       return;
     }
@@ -16,7 +12,8 @@ class ArtController {
       name,
       image,
       postedBy: req.userId,
-      desc: desc || '',
+      tags,
+      description: description || '',
     });
 
     art.save();
@@ -24,17 +21,23 @@ class ArtController {
     //{ message: 'Art posted successfully' });
   }
 
-  static async artsByUser(req, res) {
+  static async myArts(req, res) {
     const allArts = await Art.find({ postedBy: req.userId });
+    res.status(200).send(allArts);
+  }
+
+  static async getByTags(req, res) {
+    const allArts = await Art.find({
+      tag: req.param.tag,
+    });
     res.status(200).send(allArts);
   }
 
   static async deleteArt(req, res) {
     const art_id = req.params.id;
     const art = await Art.deleteOne({ _id: art_id, postedBy: req.userId });
-    console.log(art);
-    if (art) {
-      res.json({ message: 'Deleted successfully' });
+    if (art.deletedCount) {
+      res.status(204).json({});
     } else {
       res.status(401).json({ error: 'Does not exist' });
     }
@@ -49,7 +52,6 @@ class ArtController {
       },
       { new: true }
     );
-    console.log(art);
     res.status(200).send(art);
   }
 
@@ -62,7 +64,6 @@ class ArtController {
       },
       { new: true }
     );
-    console.log(art);
     res.status(200).send(art);
   }
 }

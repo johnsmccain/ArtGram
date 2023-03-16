@@ -18,7 +18,6 @@ class AuthController {
       //   return;
       // }
       const key = `auth_${uuidv4()}`;
-      console.log(key);
       redisClient.set(key, user._id.toString(), 86400);
       res.status(200).send({ message: 'Logged in successfully' });
     } catch (e) {
