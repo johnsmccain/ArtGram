@@ -22,6 +22,17 @@ class UsersController {
     });
   }
 
+  static async getUser(req, res) {
+    try {
+      const user = await User.findById(req.params.id);
+      if (user) {
+        res.status(201).json({ user });
+      }
+    } catch (error) {
+      res.status(404).send({ error: 'User not found' });
+    }
+  }
+  8;
   static async myLikes(req, res) {
     const allArts = await Art.find({ likes: req.userId });
     res.status(200).send(allArts);
