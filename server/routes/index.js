@@ -1,4 +1,4 @@
-import { sayHello } from '../controllers';
+import { register, sayHello } from '../controllers';
 import UsersController from '../controllers/user';
 import AuthController from '../controllers/auth';
 import ArtController from '../controllers/art';
@@ -10,6 +10,8 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/', sayHello);
+router.get('/signup', register);
+router.post('/login', AuthController.logIn);
 
 router.post('/signup', UsersController.createUser);
 
