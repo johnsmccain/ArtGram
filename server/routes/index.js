@@ -9,10 +9,6 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/', sayHello);
-router.get('/signup', register);
-router.post('/login', AuthController.logIn);
-
 router.post('/signup', UsersController.createUser);
 
 router.get('/login', AuthController.logIn);
