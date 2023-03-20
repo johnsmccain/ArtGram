@@ -14,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate()
     const [loginState, setLoginState] = useState(fieldsState);
 
-    const handleChange = (e: { target: { id: any; value: any; }; }) => {
+    const handleChange = (e: any) => {
         setLoginState({ ...loginState, [e.target.id]: e.target.value })
     }
     const handleSubmit = (e: any) => {
