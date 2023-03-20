@@ -1,7 +1,8 @@
 import React from "react";
 import Vid from "../assets/share.mp4";
+import { Header } from "../components";
 
-const Register = () => {
+const RegisterPage = () => {
 	return (
 		<div className="flex h-screen items-center justify-start flex-col">
 			<div className="relative w-full h-full">
@@ -15,11 +16,17 @@ const Register = () => {
 					src={Vid}
 				/>
 				<div className="absolute flex justify-center items-center flex-col bg-blackOverlay top-0 left-0 right-0 bottom-0">
-					hhhh
+					<Header
+						heading="Signup to create an account"
+						paragraph='Already have an account?'
+						linkName="Login"
+						linkUrl='/login'
+
+					/>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default Register;
+export default RegisterPage;

@@ -1,6 +1,7 @@
 import React from "react";
 import Vid from "../assets/share.mp4";
-const Login = () => {
+import { Header } from "../components";
+const LoginPage = () => {
 	return (
 		<div className="flex h-screen items-center justify-start flex-col">
 			<div className="relative w-full h-full">
@@ -14,11 +15,17 @@ const Login = () => {
 					src={Vid}
 				/>
 				<div className="absolute flex justify-center items-center flex-col bg-blackOverlay top-0 left-0 right-0 bottom-0">
-					hhhh
+					<Header
+						heading="Login to your account"
+						paragraph="Don't have an account?"
+						linkName="Signup"
+						linkUrl='/register'
+					/>
+
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default Login;
+export default LoginPage;
