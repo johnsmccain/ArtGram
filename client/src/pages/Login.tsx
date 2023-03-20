@@ -1,6 +1,8 @@
 import React from "react";
 import Vid from "../assets/share.mp4";
 import { Header } from "../components";
+import Login from "../components/Login";
+
 const LoginPage = () => {
 	return (
 		<div className="flex h-screen items-center justify-start flex-col">
@@ -21,7 +23,7 @@ const LoginPage = () => {
 						linkName="Signup"
 						linkUrl='/register'
 					/>
-
+					<Login />
 				</div>
 			</div>
 		</div>

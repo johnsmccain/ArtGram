@@ -18,7 +18,6 @@ const Header = ({ heading, paragraph, linkName, linkUrl = '#' }: any) => {
                     {linkName}
                 </Link>
             </p>
-
         </div >
     );
 };

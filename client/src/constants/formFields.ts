@@ -1,4 +1,4 @@
-const loginFields = [
+const loginFields: any[] = [
   {
     labelText: 'Email address',
     labelFor: 'email-address',
@@ -15,13 +15,13 @@ const loginFields = [
     id: 'password',
     name: 'password',
     type: 'password',
-    autoComplete: 'current-password',
+    autoComplete: 'password',
     isRequired: true,
     placeholder: 'Password',
   },
 ];
 
-const signupFields = [
+const signupFields: any[] = [
   {
     labelText: 'Username',
     labelFor: 'username',
@@ -64,4 +64,4 @@ const signupFields = [
   },
 ];
 
-export default { loginFields, signupFields };
+export { loginFields, signupFields };

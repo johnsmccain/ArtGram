@@ -11,11 +11,12 @@ const router = express.Router();
 
 router.get('/', sayHello);
 router.get('/signup', register);
+
 router.post('/login', AuthController.logIn);
 
 router.post('/signup', UsersController.createUser);
 
-router.get('/login', AuthController.logIn);
+// router.get('/login', AuthController.logIn);
 router.get('/logout', AuthController.logOut);
 
 router.post('/art', isLoggedIn, ArtController.postArt);

@@ -1,6 +1,7 @@
 import React from "react";
 import Vid from "../assets/share.mp4";
 import { Header } from "../components";
+import Register from "../components/Register";
 
 const RegisterPage = () => {
 	return (
@@ -23,6 +24,7 @@ const RegisterPage = () => {
 						linkUrl='/login'
 
 					/>
+					<Register />
 				</div>
 			</div>
 		</div>
