@@ -28,12 +28,13 @@ const Register = () => {
             email: registerState['email-address'],
             password: registerState['password']
         }
-        console.log(`The details are ${userInput.email} and ${userInput.password}`);
         const response = await axios({
             method: 'POST',
             url: 'http://localhost:5000/signup',
             data: userInput
         });
+        const data = await response.data;
+        return data
     }
 
     return (

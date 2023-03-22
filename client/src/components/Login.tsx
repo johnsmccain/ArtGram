@@ -31,18 +31,16 @@ const Login = () => {
                 password: loginState['password']
             }
 
-            // const auth = window.btoa(`${userInput.email}:${userInput.password}`)
-            // console.log(auth)
-            // console.log(`The details are ${userInput.email} and ${userInput.password}`);
             const response = await axios({
                 method: 'POST',
                 url: `${SERVER_URL}/login`,
                 data: userInput,
             })
-            localStorage.setItem('user', JSON.stringify(response));
+            sessionStorage.setItem('token', response.data.token);
             navigate('/')
 
         } catch (error) {
+            await localStorage.clear();
             console.log('Invalid login')
         }
 
