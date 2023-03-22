@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import redisClient from '../utils/redis';
 import User from '../models/user';
 import { Types } from 'mongoose';
+import jwt from 'jsonwebtoken';
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'access_token';
 
 class AuthController {
   static async logIn(req, res) {
@@ -22,9 +25,15 @@ class AuthController {
           .compare(req.body.password, savedUser.password)
           .then((isMatch) => {
             if (isMatch) {
-              const key = `auth_${uuidv4()}`;
-              redisClient.set(key, savedUser._id.toString(), 86400);
-              res.status(200).send({ message: 'Logged in successfully' });
+              const accessToken = jwt.sign({ savedUser }, ACCESS_TOKEN_SECRET, {
+                expiresIn: 1200,
+              });
+              res.setHeader('Authorization', `Bearer ${accessToken}`);
+              res.status(200).send({
+                message: 'Logged in successfully',
+                accessToken,
+                user: savedUser,
+              });
             } else {
               res.status(403).json({ error: 'Invalid password' });
             }
@@ -35,27 +44,6 @@ class AuthController {
     }
   }
 
-  static async xlogIn(req, res) {
-    try {
-      const authToken = req.header('authorization').split(' ')[1];
-      console.log(req);
-      console.log('Auth token: ' + authToken);
-      const auth = Buffer.from(authToken, 'base64').toString('utf8');
-      const [email, password] = auth.split(':');
-      const hash = crypto.createHash('sha256').update(password).digest('hex');
-      const user = await User.findOne({ email: email });
-      // console.log(!user);
-      // if (!user) {
-      //   res.status(403).send({ error: 'User not found' });
-      //   return;
-      // }
-      const key = `auth_${uuidv4()}`;
-      redisClient.set(key, user._id.toString(), 86400);
-      res.status(200).send({ message: 'Logged in successfully' });
-    } catch (e) {
-      res.status(403).send({ error: 'User not found' });
-    }
-  }
   static async logOut(req, res) {
     const token = req.header('X-Token');
     const key = `auth_${token}`;

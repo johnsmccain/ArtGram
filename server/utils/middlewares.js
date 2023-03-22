@@ -1,23 +1,41 @@
-import User from '../models/user';
-import redisClient from '../utils/redis';
+import jwt from 'jsonwebtoken';
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'access_token';
+const REFRESH_TOKEN_SECRET =
+  process.env.REFRESH_TOKEN_SECRET || 'refresh_token';
 
 const isLoggedIn = async (req, res, next) => {
-  try {
-    const token = req.header('X-Token');
-    const key = `auth_${token}`;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
 
-    const userId = await redisClient.get(key);
-
-    if (!userId) {
-      res.status(401).send({ error: 'Unauthorised' });
-      return;
-    }
-    const user = await User.findOne({ _id: userId });
-    req.userId = user._id;
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
     next();
-  } catch (err) {
-    res.status(401).send({ error: 'Unauthorised' });
-  }
+  });
+};
+
+const refreshAccessToken = (req, res, next) => {
+  const refreshToken = req.cookies['refreshToken'];
+  if (refreshToken == null) return res.sendStatus(401);
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    const accessToken = jwt.sign(
+      { username: user.username },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '10m' }
+    );
+    const newRefreshToken = jwt.sign(
+      { username: user.username },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '7d' }
+    );
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    next();
+  });
 };
 
 export default isLoggedIn;

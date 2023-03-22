@@ -11,7 +11,7 @@ const artSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    tags: [{ type: String }],
+    tags: { type: String },
     postedBy: {
       type: ObjectId,
       required: true,
