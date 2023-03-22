@@ -16,7 +16,7 @@ router.post('/login', AuthController.logIn);
 
 router.post('/signup', UsersController.createUser);
 
-router.get('/logout', AuthController.logOut);
+router.delete('/logout', isLoggedIn, AuthController.logOut);
 
 router.post('/art', isLoggedIn, ArtController.postArt);
 router.delete('/arts/:id', isLoggedIn, ArtController.deleteArt);

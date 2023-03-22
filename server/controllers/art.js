@@ -7,7 +7,7 @@ class ArtController {
       res.status(400).send({ error: 'Please submit all required fields' });
       return;
     }
-
+    console.log(`The request is ${req.userId}`);
     const art = await Art.create({
       name,
       image,

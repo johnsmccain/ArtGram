@@ -1,0 +1,50 @@
+Plan:
+
+1. Install required package `jsonwebtoken`.
+2. Create a middleware function to generate a new token and set it in the response `header`.
+3. Create a middleware function to verify the access token in the request `header` and add the `user` details to the `req` object.
+4. Create a middleware function to verify the refresh token in the request `cookie` and set a new access and refresh token.
+
+```
+//Step 1
+const jwt = require('jsonwebtoken');
+
+//Step 2
+const setAccessToken = (req, res, next) => {
+  const userData = {
+    // user data to be added to the token
+  };
+  const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+  res.setHeader('Authorization', `Bearer ${accessToken}`);
+  next();
+};
+
+//Step 3
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+//Step 4
+const refreshToken = (req, res, next) => {
+  const refreshToken = req.cookies['refreshToken'];
+  if (refreshToken == null) return res.sendStatus(401);
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+    const newRefreshToken = jwt.sign({ username: user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    next();
+  });
+};
+```
+Note: This code assumes that the `ACCESS_TOKEN_SECRET` and `REFRESH_TOKEN_SECRET` are available as environment variables.

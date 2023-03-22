@@ -105,8 +105,7 @@ dist
 server/allroutes
 client/src/utils/Firebase.ts
 
-client/
+
 *.txt
 .gitignore
 
-*.tsx
