@@ -2,17 +2,17 @@ import Art from '../models/art';
 
 class ArtController {
   static async postArt(req, res) {
-    const { name, image, tags, description } = req.body;
+    const { name, image, category, description } = req.body;
     if (!name || !image || !description) {
       res.status(400).send({ error: 'Please submit all required fields' });
       return;
     }
-
+    console.log(`The request is ${req.userId}`);
     const art = await Art.create({
       name,
       image,
       postedBy: req.userId,
-      tags,
+      category,
       description: description || '',
     });
 
@@ -26,9 +26,9 @@ class ArtController {
     res.status(200).send(allArts);
   }
 
-  static async getByTags(req, res) {
+  static async getByCategory(req, res) {
     const allArts = await Art.find({
-      tag: req.param.tag,
+      category: req.param.category,
     });
     res.status(200).send(allArts);
   }

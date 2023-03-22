@@ -1,23 +1,44 @@
-import User from '../models/user';
-import redisClient from '../utils/redis';
+import jwt from 'jsonwebtoken';
 
 const isLoggedIn = async (req, res, next) => {
-  try {
-    const token = req.header('X-Token');
-    const key = `auth_${token}`;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null)
+    return res.status(401).send({ error: 'No token provided' });
 
-    const userId = await redisClient.get(key);
-
-    if (!userId) {
-      res.status(401).send({ error: 'Unauthorised' });
-      return;
-    }
-    const user = await User.findOne({ _id: userId });
-    req.userId = user._id;
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    if (err) return res.status(403).send({ error: 'Invalid token' });
+    const { id } = payload;
+    req.userId = id;
     next();
-  } catch (err) {
-    res.status(401).send({ error: 'Unauthorised' });
-  }
+  });
+};
+
+const refreshAccessToken = (req, res, next) => {
+  const refreshToken = req.cookies['refreshToken'];
+
+  if (refreshToken == null) return res.sendStatus(401);
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).send({ error: 'Invalid token' });
+
+    const accessToken = jwt.sign(
+      { id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: 1200,
+      }
+    );
+    const newRefreshToken = jwt.sign(
+      { id: user._id },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: '7d',
+      }
+    );
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    next();
+  });
 };
 
 export default isLoggedIn;

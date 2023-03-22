@@ -1,15 +1,14 @@
-// import { m } from "mongodb"
+import * as dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
 
-import mongoose from "mongoose";
-
-const HOST = process.env.DB_HOST || 'localhost';
-const PORT = process.env.DB_HOST || 27017;
 const DATABASE = process.env.DB_HOST || 'gallery';
+const MONGODB_URL = process.env.MONGODB_URL;
 
-const url = `mongodb://${HOST}:${PORT}/${DATABASE}`;
+const url = MONGODB_URL || `mongodb://localhost:27017/gallery`;
 
-
-
-const dbClient = ()=> mongoose.connect(url).then(()=>{
-            console.log(`${DATABASE} is connected to MongoDB successful`);})
-module.exports = dbClient
+const dbClient = () =>
+  mongoose.connect(url).then(() => {
+    console.log(`${DATABASE} is connected to MongoDB successful`);
+  });
+module.exports = dbClient;
