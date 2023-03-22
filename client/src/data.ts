@@ -19,7 +19,7 @@ export const User = {
 export const arts = [
     {
         id:1,
-        name: "ba",
+        name: "Jago Jagaba",
         image: pic1,
         desc: "One sweet image",
         likes: [
@@ -33,7 +33,7 @@ export const arts = [
     },
     {
         id:2,
-        name: "ba",
+        name: "Garba Zarimai",
         image: pic2,
         desc: "One sweet image",
         likes: [
@@ -47,7 +47,7 @@ export const arts = [
     },
     {
         id:3,
-        name: "ba",
+        name: "Bleacher Gayng",
         image: pic10,
         desc: "One sweet image",
         likes: [
@@ -61,7 +61,7 @@ export const arts = [
     },
     {
         id:4,
-        name: "ba",
+        name: "FBI Carter",
         image: pic3,
         desc: "One sweet image",
         likes: [
@@ -75,7 +75,7 @@ export const arts = [
     },
     {
         id:5,
-        name: "ba",
+        name: "Corona Bilgate",
         image: pic9,
         desc: "One sweet image",
         likes: [
@@ -89,7 +89,7 @@ export const arts = [
     },
     {
         id:6,
-        name: "ba",
+        name: "Mark Zanku",
         image: pic4,
         desc: "One sweet image",
         likes: [],
@@ -98,7 +98,7 @@ export const arts = [
     },
     {
         id:7,
-        name: "ba",
+        name: "Ubantu Uban",
         image: pic5,
         desc: "One sweet image",
         likes: [],
@@ -107,7 +107,7 @@ export const arts = [
     },
     {
         id:8,
-        name: "ba",
+        name: "Portion Saidin",
         image: pic6,
         desc: "One sweet image",
         likes: [],
@@ -116,7 +116,7 @@ export const arts = [
     },
     {
         id:9,
-        name: "ba",
+        name: "Sabita Sati",
         image: pic7,
         desc: "One sweet image",
         likes: [],
@@ -125,7 +125,7 @@ export const arts = [
     },
     {
         id:10,
-        name: "ba",
+        name: "Barakan Da",
         image: pic8,
         desc: "One sweet image",
         likes: [],

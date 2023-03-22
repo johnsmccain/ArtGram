@@ -6,8 +6,6 @@ import Feed from "./Feed";
 
 const Gallery = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-
-	console.log(searchTerm);
 	return (
 		<div className="px-2 md:px-5">
 			<div className="bg-gray-50">
@@ -26,7 +24,7 @@ const Gallery = () => {
 						element={<ArtDetail user={user && user} />}
 					/>
 					<Route path="/create-art" element={<CreateArt />} />
-					<Route path="/search" element={<Search />} />
+					<Route path="/search" element={<Search searchTerm={searchTerm} />} />
 				</Routes>
 			</div>
 		</div>
