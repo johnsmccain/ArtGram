@@ -38,7 +38,7 @@ const Register = () => {
     }
 
     return (
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="w-full shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 space-y-6 max-w-md" onSubmit={handleSubmit}>
             <div className="space-y-px">
                 {
                     fields.map(field =>
@@ -58,7 +58,8 @@ const Register = () => {
                     )
                 }
             </div>
-            <FormAction handleSubmit={handleSubmit} text="Signup" />
+
+            <FormAction handleSubmit={handleSubmit} text="Sign Up" />
 
 
         </form>

@@ -48,7 +48,7 @@ const Login = () => {
 
 
     return (
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="w-full shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 space-y-6 max-w-md" onSubmit={handleSubmit}>
             <div className="-space-y-px">
                 {
                     fields.map(field =>
@@ -68,8 +68,11 @@ const Login = () => {
                     )
                 }
             </div>
-            <FormAction handleSubmit={handleSubmit} text="Login" />
 
+            <FormAction handleSubmit={handleSubmit} text="Sign In" />
+            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                Forgot Password?
+            </a>
 
         </form>
     )

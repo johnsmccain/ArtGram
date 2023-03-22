@@ -2,7 +2,6 @@ import React from "react";
 import Vid from "../assets/share.mp4";
 import { Header } from "../components";
 import Login from "../components/Login";
-import UploadArt from "../components/UploadArt";
 
 const LoginPage = () => {
 	return (
@@ -29,7 +28,7 @@ const LoginPage = () => {
 				</div>
 
 			</div>
-			<UploadArt />
+
 		</div>
 	);
 };

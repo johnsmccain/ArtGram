@@ -2,6 +2,7 @@ import React from "react";
 import Vid from "../assets/share.mp4";
 import { Header } from "../components";
 import Register from "../components/Register";
+import ResetPassword from "../components/ResetPassword";
 
 const RegisterPage = () => {
 	return (

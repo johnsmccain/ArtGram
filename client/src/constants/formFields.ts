@@ -64,4 +64,15 @@ const signupFields: any[] = [
   },
 ];
 
-export { loginFields, signupFields };
+const resetFields: any = {
+  labelText: 'Email address',
+  labelFor: 'email-address',
+  id: 'email-address',
+  name: 'email',
+  type: 'email',
+  autoComplete: 'email',
+  isRequired: true,
+  placeholder: 'Email address',
+};
+
+export { loginFields, signupFields, resetFields };
