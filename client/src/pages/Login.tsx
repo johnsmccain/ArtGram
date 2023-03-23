@@ -42,7 +42,7 @@ const Login = () => {
 							<button
 								type="submit"
 								className="bg-red-600 text-white font-semibold rounded-lg p-2 hover:bg-red-500 active:bg-red-400 mt-1">
-								SignUp
+								Login
 							</button>
 						</div>
 					</form>
