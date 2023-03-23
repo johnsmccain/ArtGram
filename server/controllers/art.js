@@ -1,4 +1,5 @@
 import Art from '../models/art';
+import Comments from '../models/comments';
 
 class ArtController {
   static async postArt(req, res) {
@@ -34,8 +35,8 @@ class ArtController {
   }
 
   static async deleteArt(req, res) {
-    const art_id = req.params.id;
-    const art = await Art.deleteOne({ _id: art_id, postedBy: req.userId });
+    const artId = req.params.id;
+    const art = await Art.deleteOne({ _id: artId, postedBy: req.userId });
     if (art.deletedCount) {
       res.status(204).json({});
     } else {
@@ -43,10 +44,34 @@ class ArtController {
     }
   }
 
+  static async comment(req, res) {
+    try {
+      console.log(req.userId);
+      const artId = req.params.id;
+      const comment = await Comments.create({
+        text: req.body.text,
+        userId: req.userId,
+        artId,
+      });
+      console.log(comment);
+      const art = await Art.findByIdAndUpdate(
+        artId,
+        {
+          $push: { comments: { text: comment.text, postedBy: req.userId } },
+        },
+        { new: true }
+      );
+      res.status(200).send(art);
+    } catch (err) {
+      console.log(err);
+      res.status(404).send({ error: 'failed' });
+    }
+  }
+
   static async like(req, res) {
-    const art_id = req.params.id;
+    const artId = req.params.id;
     const art = await Art.findByIdAndUpdate(
-      art_id,
+      artId,
       {
         $addToSet: { likes: req.userId },
       },
@@ -56,9 +81,9 @@ class ArtController {
   }
 
   static async unlike(req, res) {
-    const art_id = req.params.id;
+    const artId = req.params.id;
     const art = await Art.findByIdAndUpdate(
-      art_id,
+      artId,
       {
         $pull: { likes: req.userId },
       },

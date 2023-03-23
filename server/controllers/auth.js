@@ -60,7 +60,7 @@ class AuthController {
       return;
     }
 
-    jwt.sign(authHeader, '', { expiresIn: 1 }, (error) => {
+    jwt.sign(refreshToken, '', { expiresIn: 1 }, (error) => {
       if (error) {
         res.status(401).send({ error: 'not signed' });
         return;

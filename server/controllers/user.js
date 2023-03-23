@@ -25,7 +25,7 @@ class UsersController {
 
   static async getUser(req, res) {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id, '-password');
       if (user) {
         res.status(201).json({ user });
       }
@@ -33,7 +33,21 @@ class UsersController {
       res.status(404).send({ error: 'User not found' });
     }
   }
-  8;
+
+  static async getAllUsers(req, res) {
+    try {
+      const page = parseInt(req.query.page) - 1 || 0;
+      const limit = parseInt(req.query.limit) || 20;
+      const users = await User.find({}, '-password')
+        .skip(page * limit)
+        .limit(limit)
+        .sort({ createdAt: 'desc' });
+      res.status(201).json({ users: users });
+    } catch (err) {
+      res.status(404).send({ error: 'No users' });
+    }
+  }
+
   static async myLikes(req, res) {
     const allArts = await Art.find({ likes: req.userId });
     res.status(200).send(allArts);

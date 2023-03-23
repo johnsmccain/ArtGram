@@ -15,14 +15,16 @@ router.post('/signup', UsersController.createUser);
 router.post('/login', AuthController.logIn);
 router.delete('/logout', isLoggedIn, AuthController.logOut);
 
+router.get('/arts', isLoggedIn, ArtController.myArts);
 router.post('/art', isLoggedIn, ArtController.postArt);
 router.delete('/arts/:id', isLoggedIn, ArtController.deleteArt);
 router.put('/arts/:id/like', isLoggedIn, ArtController.like);
 router.put('/arts/:id/unlike', isLoggedIn, ArtController.unlike);
-
+router.post('/arts/:id/comment', isLoggedIn, ArtController.comment);
 router.get('/arts/:category', isLoggedIn, ArtController.getByCategory);
-router.get('/arts', isLoggedIn, ArtController.myArts);
 
+router.get('/users/:id', UsersController.getUser);
+router.get('/users', UsersController.getAllUsers);
 router.get('/user/likes', isLoggedIn, UsersController.myLikes);
 
 export default router;
