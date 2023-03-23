@@ -35,26 +35,7 @@ const CreateArt = () => {
 	};
 
 	const savePin = () => {
-		if (title && about && destination && imageAsset?._id && category) {
-			const doc = {
-				_type: "pin",
-				title,
-				about,
-				destination,
-				image: {
-					_type: "image",
-					asset: {
-						_type: "reference",
-						_ref: imageAsset?._id,
-					},
-				},
-				userId: "user._id",
-				postedBy: {
-					_type: "postedBy",
-					_ref: "user._id,",
-				},
-				category,
-			};
+		if (title && about && destination && imageAsset && category) {
 			// client.create(doc).then(() => {
 			// 	navigate("/");
 			// });
@@ -111,7 +92,8 @@ const CreateArt = () => {
 								<button
 									type="button"
 									className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
-									onClick={() => setImageAsset(null)}>
+									// onClick={() => setImageAsset()}
+								>
 									<MdDelete />
 								</button>
 							</div>
