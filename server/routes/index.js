@@ -3,7 +3,7 @@ import UsersController from '../controllers/user';
 import AuthController from '../controllers/auth';
 import ArtController from '../controllers/art';
 
-import isLoggedIn from '../utils/middlewares';
+import { isLoggedIn, refreshAccessToken } from '../utils/middlewares';
 
 import express from 'express';
 
@@ -14,6 +14,7 @@ router.get('/', sayHello);
 router.post('/signup', UsersController.createUser);
 router.post('/login', AuthController.logIn);
 router.delete('/logout', isLoggedIn, AuthController.logOut);
+router.post('/refresh', refreshAccessToken);
 
 router.get('/arts', isLoggedIn, ArtController.myArts);
 router.post('/art', isLoggedIn, ArtController.postArt);
@@ -26,5 +27,8 @@ router.get('/arts/:category', isLoggedIn, ArtController.getByCategory);
 router.get('/users/:id', UsersController.getUser);
 router.get('/users', UsersController.getAllUsers);
 router.get('/user/likes', isLoggedIn, UsersController.myLikes);
+
+router.patch('/users/:id/follow', isLoggedIn, UsersController.follow);
+router.patch('/users/:id/unfollow', isLoggedIn, UsersController.unfollow);
 
 export default router;

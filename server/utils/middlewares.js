@@ -16,8 +16,9 @@ const isLoggedIn = async (req, res, next) => {
 
 const refreshAccessToken = (req, res, next) => {
   const refreshToken = req.cookies['refreshToken'];
+  console.log('refreshToken', refreshToken);
 
-  if (refreshToken == null) return res.sendStatus(401);
+  if (refreshToken === null) return res.sendStatus(401);
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(403).send({ error: 'Invalid token' });
 
@@ -41,4 +42,4 @@ const refreshAccessToken = (req, res, next) => {
   });
 };
 
-export default isLoggedIn;
+export { isLoggedIn, refreshAccessToken };
