@@ -1,5 +1,6 @@
 import React from "react";
 import Vid from "../assets/share.mp4";
+import { SignupForm } from "../components";
 
 const inputWrapper = `my-4  bg-slate-300 flex  rounded-md items-center `;
 const inputLabel = `ml-3`;
@@ -18,7 +19,7 @@ const Register = () => {
 					src={Vid}
 				/>
 				<div className="absolute flex justify-center items-center flex-col bg-blackOverlay top-0 left-0 right-0 bottom-0">
-					<form className="bg-slate-100 rounded-lg p-5 text-black flex justify-center align-middle">
+					{/* <form className="bg-slate-100 rounded-lg p-5 text-black flex justify-center align-middle">
 						<div className="w-full flex flex-col justify-center">
 							<div className={inputWrapper}>
 								<label htmlFor="name" className={inputLabel}>
@@ -48,7 +49,8 @@ const Register = () => {
 								SignUp
 							</button>
 						</div>
-					</form>
+					</form> */}
+					<SignupForm />
 				</div>
 			</div>
 		</div>

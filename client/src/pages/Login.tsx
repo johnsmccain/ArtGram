@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Vid from "../assets/share.mp4";
+import { LoginForm } from "../components";
 
 const inputWrapper = `my-4  bg-slate-300 flex rounded-md items-center `;
 const inputLabel = `ml-3`;
@@ -21,7 +22,7 @@ const Login = () => {
 					src={Vid}
 				/>
 				<div className="absolute flex justify-center items-center flex-col bg-blackOverlay top-0 left-0 right-0 bottom-0">
-					<form className="bg-slate-100 rounded-lg p-5 text-black flex justify-center align-middle">
+					{/* <form className="bg-slate-100 rounded-lg p-5 text-black flex justify-center align-middle">
 						<div className="w-full flex flex-col justify-center">
 							<div className={inputWrapper}>
 								<label htmlFor="email" className={inputLabel}>
@@ -45,7 +46,8 @@ const Login = () => {
 								Login
 							</button>
 						</div>
-					</form>
+					</form> */}
+					<LoginForm />
 				</div>
 			</div>
 		</div>
