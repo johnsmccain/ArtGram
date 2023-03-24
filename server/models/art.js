@@ -11,19 +11,22 @@ const artSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    description: { type: String, default: 'Art' },
     category: { type: String },
     postedBy: {
       type: ObjectId,
       required: true,
     },
+    likes: [{ type: ObjectId, ref: 'User' }],
     comments: [
       {
-        type: ObjectId,
-        ref: 'Comment',
+        text: String,
+        postedBy: {
+          type: ObjectId,
+          ref: 'User',
+        },
       },
     ],
-    description: { type: String, default: 'Art' },
-    likes: [{ type: ObjectId, ref: 'User' }],
   },
   { timestamps: true }
 );

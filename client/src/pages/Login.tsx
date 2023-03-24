@@ -107,8 +107,15 @@ const Login = () => {
 								/>
 								<button className=""> SingIn with Email</button>
 							</div>
+<<<<<<< HEAD
 							<button className="mt-2" onClick={() => setSocialAuth(false)}>
 								Lgin with Email
+=======
+							<button
+								type="submit"
+								className="bg-red-600 text-white font-semibold rounded-lg p-2 hover:bg-red-500 active:bg-red-400 mt-1">
+								Login
+>>>>>>> 6d0a35c3cc17165d745e721b5b934506ecfc5e3d
 							</button>
 						</div>
 					)}

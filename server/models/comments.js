@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 const { ObjectId } = mongoose.Schema.Types;
 
 const commentSchema = mongoose.Schema({
-  text: String,
+  text: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: ObjectId,
     ref: 'User',

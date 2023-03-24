@@ -104,3 +104,6 @@ dist
 .tern-port
 server/allroutes
 .env
+.env
+
+new
