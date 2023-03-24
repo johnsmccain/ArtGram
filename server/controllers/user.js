@@ -1,25 +1,25 @@
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import User from '../models/user';
 import Art from '../models/art';
 
 class UsersController {
   static async createUser(req, res) {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { name, email } = req.body;
+    // const photo = req.body?.photo;
+    if (!name || !email) {
       res.status(400).send({ error: 'Submit all required fields' });
       return;
     }
     const savedUser = await User.findOne({ email: email });
     if (savedUser) {
-      res.status(400).json({ error: 'Email already exists' });
+      res.status(200).json( "Login" );
       return;
     }
-    const hash = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hash });
+
+    const user = await User.create({ name, email });
     res.status(201).send({
       id: `${user.id}`,
       name: `${user.name}`,
-      password: `${user.password}`,
     });
   }
 
