@@ -6,11 +6,13 @@ import { Home, Login, Register } from "./pages";
 
 function App() {
 	const navigate = useNavigate();
-	const [user, setUser] = useState(false);
+	// const [user, setUser] = useState(false);
 
-	// useEffect(() => {
-	// 	if (!user) navigate("/login");
-	// }, []);
+	const user = JSON.parse(localStorage.getItem("user") || "");
+
+	useEffect(() => {
+		if (!user) navigate("/login");
+	}, []);
 
 	return (
 		<Routes>

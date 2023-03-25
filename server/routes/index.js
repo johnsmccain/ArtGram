@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/', sayHello);
 
-router.post('/signup', UsersController.createUser);
+router.post('/auth', UsersController.createUser);
 router.post('/login', AuthController.logIn);
 router.delete('/logout', isLoggedIn, AuthController.logOut);
 router.post('/refresh', refreshAccessToken);

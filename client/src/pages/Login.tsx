@@ -29,11 +29,16 @@ const Login = () => {
 			setName(data?.user?.displayName);
 			setEmail(data?.user?.email);
 			setImage(data?.user?.photoURL);
-			console.log(name);
-			// navigate("/home");
+			// localStorage.setItem("user", JSON.stringify({name, email, image}))
+			navigate("/");
 		} catch (error) {
 			console.log(error);
 		}
+		// try {
+
+		// } catch (error) {
+
+		// }
 	};
 
 	const singIn = (e: any) => {
@@ -107,15 +112,8 @@ const Login = () => {
 								/>
 								<button className=""> SingIn with Email</button>
 							</div>
-<<<<<<< HEAD
 							<button className="mt-2" onClick={() => setSocialAuth(false)}>
-								Lgin with Email
-=======
-							<button
-								type="submit"
-								className="bg-red-600 text-white font-semibold rounded-lg p-2 hover:bg-red-500 active:bg-red-400 mt-1">
-								Login
->>>>>>> 6d0a35c3cc17165d745e721b5b934506ecfc5e3d
+								Login with Email
 							</button>
 						</div>
 					)}

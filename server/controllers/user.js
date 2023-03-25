@@ -7,7 +7,7 @@ const ignore = '-password, -createdAt, -updatedAt, -__v';
 class UsersController {
   static async createUser(req, res) {
     const { name, email } = req.body;
-    // const photo = req.body?.photo;
+    const photoURL = req?.body?.photoURL;
     if (!name || !email) {
       res.status(400).send({ error: 'Submit all required fields' });
       return;
@@ -20,8 +20,12 @@ class UsersController {
       res.status(200).json( "Login" );
       return;
     }
-
-    const user = await User.create({ name, email });
+    const user = {}
+    if(photo){
+      user = await User.create({ name, email, profileImage:photoURL });
+    } else {
+      user = await User.create({ name, email });
+    }
     res.status(201).send({
       id: `${user.id}`,
       name: `${user.name}`,
