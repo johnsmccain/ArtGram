@@ -1,18 +1,21 @@
 import React from "react";
 import logo from "../images/06.png";
 import { RiHomeFill } from "react-icons/ri";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { categories } from "../data";
 import { IoIosArrowForward } from "react-icons/io";
+import { useUserAuth } from "../context/Auth";
 
 const isNotActiveStyle =
 	"flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize";
 const isActiveStyle =
 	"flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize";
 const Sidebar = ({ closeToggle, user }: any) => {
+	const { logOut } = useUserAuth();
 	const handleClose = () => {
 		closeToggle && closeToggle(false);
 	};
+	const navigate = useNavigate();
 	return (
 		<div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
 			<div className="flex flex-col">
@@ -48,7 +51,14 @@ const Sidebar = ({ closeToggle, user }: any) => {
 					className="flex my-5 mb-3 gap-2 items-center bg-white rounded-lg shadow-lg mx-3">
 					<img src={user.image} alt="user" className="w-10 h-10 rounded-full" />
 					<p>{user.name}</p>
-					<IoIosArrowForward />
+
+					<IoIosArrowForward
+						data-tooltip-target="tooltip-default"
+						onClick={async () => {
+							navigate("/login");
+							await logOut();
+						}}
+					/>
 				</Link>
 			)}
 		</div>

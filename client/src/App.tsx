@@ -3,16 +3,17 @@ import reactLogo from "./assets/react.svg";
 // import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Home, Login, Register } from "./pages";
+import { useUserAuth } from "./context/Auth";
 
 function App() {
 	const navigate = useNavigate();
-	// const [user, setUser] = useState(false);
 
-	const user = JSON.parse(localStorage.getItem("user") || "");
+	const { getUser } = useUserAuth();
 
 	useEffect(() => {
-		if (!user) navigate("/login");
-	}, []);
+		if (!getUser()) navigate("/login");
+		// console.log(getUser());
+	}, [getUser()]);
 
 	return (
 		<Routes>

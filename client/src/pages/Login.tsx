@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineGoogle } from "react-icons/ai";
 import Vid from "../assets/share.mp4";
@@ -9,6 +9,8 @@ import {
 	signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../config";
+import { useUserAuth } from "../context/Auth";
+
 const inputWrapper = `my-4  bg-slate-300 flex rounded-md items-center `;
 const inputLabel = `ml-3`;
 const inputControll = `p-2 border-none outline-none bg-transparent`;
@@ -21,15 +23,14 @@ const Login = () => {
 	const [password, setPassword] = useState<any>("");
 	const [image, setImage] = useState<any>("");
 
+	const { logIn, signUp, googleSignIn } = useUserAuth();
+
 	const handleGoogleSignIn = async (e: any) => {
 		e.preventDefault();
 		try {
-			const googleAuth = new GoogleAuthProvider();
-			const data = await signInWithPopup(auth, googleAuth);
-			setName(data?.user?.displayName);
-			setEmail(data?.user?.email);
-			setImage(data?.user?.photoURL);
-			// localStorage.setItem("user", JSON.stringify({name, email, image}))
+			const data = googleSignIn();
+			console.log(data);
+			localStorage.setItem("user", JSON.stringify(data));
 			navigate("/");
 		} catch (error) {
 			console.log(error);
@@ -41,11 +42,14 @@ const Login = () => {
 		// }
 	};
 
-	const singIn = (e: any) => {
+	const singIn = async (e: any) => {
 		e.preventDefault();
-		createUserWithEmailAndPassword(auth, email, password)
-			.then(data => console.log(data))
-			.catch(err => console.log(err));
+		try {
+			const data = await logIn(email, password);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<div className="flex h-screen items-center justify-start flex-col">
