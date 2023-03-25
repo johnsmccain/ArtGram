@@ -58,7 +58,7 @@ const Sidebar = ({ closeToggle, user }: any) => {
 						alt="user"
 						className="w-10 h-10 rounded-full"
 					/>
-					<p>{user?.displayName.slice(0, 7)}</p>
+					<p>{user?.displayName?.slice(0, 7)}</p>
 
 					<IoIosArrowForward
 						data-tooltip-target="tooltip-default"
