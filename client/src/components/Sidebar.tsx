@@ -54,11 +54,11 @@ const Sidebar = ({ closeToggle, user }: any) => {
 					to={`/user-profile/${user.id}`}
 					className="flex my-5 mb-3 gap-2 items-center bg-white rounded-lg shadow-lg mx-3">
 					<img
-						src={user.photoURL || User.image}
+						src={user?.photoURL || User.image}
 						alt="user"
 						className="w-10 h-10 rounded-full"
 					/>
-					<p>{user.displayName.slice(0, 7)}</p>
+					<p>{user?.displayName.slice(0, 7)}</p>
 
 					<IoIosArrowForward
 						data-tooltip-target="tooltip-default"

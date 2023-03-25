@@ -147,8 +147,9 @@ const CreateArt = () => {
 								<option value="others" className="sm:text-bg bg-white">
 									Select Category
 								</option>
-								{categories.map((item: any) => (
+								{categories.map((item: any, i) => (
 									<option
+										key={i}
 										className="text-base border-0 outline-none capitalize bg-white text-black "
 										value={item.name}>
 										{item.name}

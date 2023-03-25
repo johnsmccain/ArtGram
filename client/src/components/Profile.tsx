@@ -36,7 +36,7 @@ const profile = () => {
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover"
 						/>
 						<img
-							src={user.photoURL || User?.image}
+							src={user?.photoURL || User?.image}
 							alt="user"
 							className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
 						/>
