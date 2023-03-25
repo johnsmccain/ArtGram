@@ -6,12 +6,14 @@ import { Profile, Sidebar } from "../components";
 import logo from "../images/06.png";
 import { User } from "../data";
 import Gallery from "../containers/Gallery";
+import { useUserAuth } from "../context/Auth";
 const Home = () => {
 	const [toggle, setToggle] = useState(false);
+	const { getUser } = useUserAuth();
 	return (
 		<div className="h-screen bg-gray-50 flex md:flex-row flex-col duration-75 transition-height ease-out">
 			<div className="h-screen hidden md:flex flex-initial">
-				<Sidebar user={User} />
+				<Sidebar user={getUser()} />
 			</div>
 
 			<div className="flex md:hidden flex-row  w-full">
@@ -25,7 +27,11 @@ const Home = () => {
 						<img src={logo} alt="logo" className="w-28" />
 					</Link>
 					<Link to={`/user-profile${323}`}>
-						<img src={User.image} alt="User" className="w-9" />
+						<img
+							src={getUser()?.photoURL || User.image}
+							alt="User"
+							className="w-9"
+						/>
 					</Link>
 				</div>
 				{toggle && (
@@ -36,7 +42,7 @@ const Home = () => {
 								onClick={() => setToggle(false)}
 							/>
 						</div>
-						<Sidebar user={User} closeToggle={setToggle} />
+						<Sidebar user={getUser()} closeToggle={setToggle} />
 					</div>
 				)}
 			</div>

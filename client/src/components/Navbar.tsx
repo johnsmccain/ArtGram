@@ -1,9 +1,12 @@
 import React from "react";
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/Auth";
 import { User } from "../data";
 const Navbar = ({ searchTerm, setSearchTerm }: any) => {
 	const navigate = useNavigate();
+	const { getUser } = useUserAuth();
+	// console.log(getUser());
 	return (
 		<div className="flex gap-2 md:gap-5 w-full mt-5 pb-7">
 			<div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
@@ -19,7 +22,11 @@ const Navbar = ({ searchTerm, setSearchTerm }: any) => {
 			</div>
 			<div className="flex gap-3">
 				<Link to={`/user-profile/:${User.id}`}>
-					<img src={User.image} alt="User" className="w-14 h-12 rounded-lg" />
+					<img
+						src={getUser().photoURL || User.image}
+						alt="User"
+						className="w-14 h-12 rounded-lg"
+					/>
 				</Link>
 				<Link
 					to="/create-art"

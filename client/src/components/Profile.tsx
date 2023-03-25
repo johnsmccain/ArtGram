@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../containers/Layout";
+import { useUserAuth } from "../context/Auth";
 import { arts as artG, User } from "../data";
 
 const activeBtnStyles =
@@ -11,6 +12,9 @@ const profile = () => {
 	const [text, setText] = useState("Created");
 	const [activeBtn, setActiveBtn] = useState("created");
 	const [arts, setArts] = useState(artG);
+
+	const { getUser } = useUserAuth();
+	const user = getUser();
 	useEffect(() => {
 		if (text === "Created") {
 			setArts(artG);
@@ -32,12 +36,14 @@ const profile = () => {
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover"
 						/>
 						<img
-							src={User?.image}
+							src={user.photoURL || User?.image}
 							alt="user"
 							className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
 						/>
 					</div>
-					<h1 className="font-bold text-3xl text-center mt-3">{User?.name}</h1>
+					<h1 className="font-bold text-3xl text-center mt-3">
+						{user?.displayName}
+					</h1>
 					<div className="absolute">{}</div>
 				</div>
 				<div className="text-center mb-7">
