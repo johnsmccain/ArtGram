@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // Set up cors to allow requests from client
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 app.use(express.json());
 app.use('/', router);

@@ -27,7 +27,7 @@ const Art = ({ art }: any) => {
 				{artHover && (
 					<div
 						className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-1 pt-2 pb-2 z-50"
-						// style={{ height: "100%" }}
+					// style={{ height: "100%" }}
 					>
 						<div className="flex items-center justify-between">
 							<div className="flex gap-2">

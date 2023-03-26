@@ -1,32 +1,25 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { Home, Login, Register, HomePage, LoginPage, SignupPage } from "./pages";
-import { AuthProvider, useAuth } from "./contexts";
-import { PrivateRoute } from "./components";
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { PrivateRoute } from './components';
+import { Home, Login, Register, HomePage, LoginPage, SignupPage } from './pages';
 
 function App() {
-	const navigate = useNavigate();
-	const { user } = useAuth();
-
-	useEffect(() => {
-		if (user) {
-			navigate("/*");
-		}
-	}, [user, navigate]);
-
-
-
 	return (
-		<AuthProvider>
-			<Routes>
-				<Route path="/*" element={<Home />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/signup" element={<Register />} />
-				<Route path="/home" element={<HomePage />} />
-				<Route path="/l" element={<LoginPage />} />
-				<Route path="/s" element={<SignupPage />} />
-			</Routes>
-		</AuthProvider>
+		<Routes>
+			<Route path="/*" element={
+				<PrivateRoute>
+					<Home />
+				</PrivateRoute>
+			} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
+			<Route path="/home" element={
+				<PrivateRoute>
+					<HomePage />
+				</PrivateRoute>} />
+			<Route path="/login-page" element={<LoginPage />} />
+			<Route path="/signup-page" element={<SignupPage />} />
+		</Routes>
 	);
 }
 

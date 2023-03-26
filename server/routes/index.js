@@ -31,4 +31,7 @@ router.get('/user/likes', isLoggedIn, UsersController.myLikes);
 router.patch('/users/:id/follow', isLoggedIn, UsersController.follow);
 router.patch('/users/:id/unfollow', isLoggedIn, UsersController.unfollow);
 
+router.get('/verify-token', AuthController.verifyToken);
+router.get('/refresh-token', AuthController.refreshToken);
+
 export default router;

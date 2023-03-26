@@ -4,11 +4,19 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { Link, Route, Routes } from "react-router-dom";
 import { Profile, Sidebar } from "../components";
 import logo from "../images/06.png";
-import { User } from "../data";
+// import { User } from "../data";
 import Gallery from "../containers/Gallery";
 import { useAuth } from "../contexts";
 const Home = () => {
 	const { user } = useAuth()
+
+	const User = {
+		id: user._id,
+		name: user.name,
+		email: user.email,
+		image: user.image,
+
+	}
 	const [toggle, setToggle] = useState(false);
 	return (
 		<div className="h-screen bg-gray-50 flex md:flex-row flex-col duration-75 transition-height ease-out">
@@ -25,7 +33,7 @@ const Home = () => {
 					/>
 					<Link to="/">
 						<img src={logo} alt="logo" className="w-28" />
-						{'What is the name of the'}
+						{User.name}
 					</Link>
 					<Link to={`/user-profile${323}`}>
 						<img src={User.image} alt="User" className="w-9" />
@@ -45,7 +53,7 @@ const Home = () => {
 			</div>
 			<div className="pb-2 flex-1 h-screen overflow-y-scroll">
 				<Routes>
-					<Route path="/user-profile/:userId" element={<Profile />} />
+					<Route path="/user-profile/:userId" element={<Profile user={User} />} />
 					<Route path="/*" element={<Gallery />} />
 				</Routes>
 			</div>

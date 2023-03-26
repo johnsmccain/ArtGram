@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../containers/Layout";
-import { arts as artG, User } from "../data";
+import { arts as artG } from "../data";
+
 
 const activeBtnStyles =
 	"bg-red-500 text-white font-bold p-2 rounded-full outline-none w-20";
 const notActiveBtnStyles =
 	"bg-primary mr-4  text-black font-bold p-2 rounded-full w-20 outline-none";
 
-const profile = () => {
+const profile = ({ user }) => {
 	const [text, setText] = useState("Created");
 	const [activeBtn, setActiveBtn] = useState("created");
 	const [arts, setArts] = useState(artG);
@@ -27,18 +28,18 @@ const profile = () => {
 				<div className="relative flex flex-col mb-7">
 					<div className="flex flex-col justify-center items-center">
 						<img
-							src={User?.image}
+							src={user?.image}
 							alt="user"
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover"
 						/>
 						<img
-							src={User?.image}
+							src={user?.image}
 							alt="user"
 							className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
 						/>
 					</div>
-					<h1 className="font-bold text-3xl text-center mt-3">{User?.name}</h1>
-					<div className="absolute">{}</div>
+					<h1 className="font-bold text-3xl text-center mt-3">{user?.name}</h1>
+					<div className="absolute">{ }</div>
 				</div>
 				<div className="text-center mb-7">
 					<button
@@ -47,9 +48,8 @@ const profile = () => {
 							setText("Created");
 							setActiveBtn("created");
 						}}
-						className={`${
-							activeBtn === "created" ? activeBtnStyles : notActiveBtnStyles
-						} `}>
+						className={`${activeBtn === "created" ? activeBtnStyles : notActiveBtnStyles
+							} `}>
 						Created
 					</button>
 					<button
@@ -58,9 +58,8 @@ const profile = () => {
 							setActiveBtn("liked");
 						}}
 						type="button"
-						className={`${
-							activeBtn === "liked" ? activeBtnStyles : notActiveBtnStyles
-						} `}>
+						className={`${activeBtn === "liked" ? activeBtnStyles : notActiveBtnStyles
+							} `}>
 						Liked
 					</button>
 				</div>

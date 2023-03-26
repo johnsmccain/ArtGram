@@ -8,7 +8,7 @@ export const loginUser = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
-  const { data } = await axios.post(API_BASE_URL + '/login/', {
+  const { data } = await axios.post(API_BASE_URL + '/login', {
     email,
     password,
   });
