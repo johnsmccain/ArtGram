@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineGoogle } from "react-icons/ai";
 import Vid from "../assets/share.mp4";
@@ -23,15 +23,20 @@ const Login = () => {
 	const [password, setPassword] = useState<any>("");
 	const [image, setImage] = useState<any>("");
 
-	const { logIn, signUp, googleSignIn } = useUserAuth();
+	const { logIn, signUp, googleSignIn, getUser } = useUserAuth();
+	useEffect(() => {
+		(async () => {
+			if (await getUser()) navigate("/");
+		})();
+	}, [getUser()]);
 
 	const handleGoogleSignIn = async (e: any) => {
 		e.preventDefault();
 		try {
-			const data = googleSignIn();
+			const data = await googleSignIn();
 			console.log(data);
 			localStorage.setItem("user", JSON.stringify(data));
-			navigate("/");
+			// navigate("/");
 		} catch (error) {
 			console.log(error);
 		}
