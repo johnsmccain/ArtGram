@@ -25,12 +25,30 @@
 
 //
 
-import axios from 'axios';
+import axios from './axios';
 import { User } from '../types/user';
 
 export const getUserDetails = async (): Promise<User> => {
-  const response = await axios.get<User>('/users/me', {
-    withCredentials: true,
-  });
+  const response = await axios.get<User>('/me');
+  return response.data;
+};
+
+export const getUser = async (id: string): Promise<User> => {
+  const response = await axios.get<User>(`/user/${id}`);
+  return response.data;
+};
+
+export const followUser = async (id: string): Promise<User> => {
+  const response = await axios.put(`/user/${id}/follow`);
+  return response.data;
+};
+
+export const unfollowUser = async (id: string): Promise<User> => {
+  const response = await axios.put(`/user/${id}/unfollow`);
+  return response.data;
+};
+
+export const myLikes = async (): Promise<User> => {
+  const response = await axios.get('/user/likes');
   return response.data;
 };

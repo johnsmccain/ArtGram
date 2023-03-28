@@ -28,6 +28,17 @@ class UsersController {
     });
   }
 
+  static async getMe(req, res) {
+    try {
+      const user = await User.findById(req.userId, ignore);
+      if (user) {
+        res.status(201).json({ user });
+      }
+    } catch (error) {
+      res.status(404).send({ error: 'User not found' });
+    }
+  }
+
   static async getUser(req, res) {
     try {
       const user = await User.findById(req.params.id, ignore);

@@ -29,5 +29,5 @@ export const signupUser = async (
 };
 
 export const logoutUser = async (): Promise<void> => {
-  await axios.post(API_BASE_URL + '/ogout/');
+  await axios.post(API_BASE_URL + '/logout/');
 };

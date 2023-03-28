@@ -4,10 +4,12 @@ const isLoggedIn = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null)
-    return res.status(401).send({ error: 'No token provided' });
-  console.log('token', token);
+    return res.status(403).send({ error: 'No token provided' });
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
-    if (err) return res.status(403).send({ error: 'Invalid token' });
+    if (err) {
+      console.log(err.message);
+      return res.status(401).send({ error: 'Invalid token' });
+    }
     const { id } = payload;
     req.userId = id;
     next();
@@ -16,8 +18,6 @@ const isLoggedIn = async (req, res, next) => {
 
 const refreshAccessToken = (req, res) => {
   const refreshToken = req.cookies['refreshToken'] || req.body.refreshToken;
-  console.log('refreshToken', refreshToken);
-
   if (refreshToken === null) return res.sendStatus(401);
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(403).send({ error: 'Invalid token' });

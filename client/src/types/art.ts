@@ -8,3 +8,7 @@ export interface Art {
   likes: Array<string>;
   comments: Array<string>;
 }
+
+export interface Arts {
+  arts: Array<Art>;
+}

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../types/user';
 import { loginUser, signupUser, logoutUser } from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../api/axios';
 
 interface AuthContextData {
     user: User | null;
@@ -12,74 +12,98 @@ interface AuthContextData {
 }
 
 interface AuthProviderProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
-
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('accessToken');
-        const refreshToken = localStorage.getItem('refreshToken');
+        const interceptor = axios.interceptors.response.use(
+            (response) => {
+                return response;
+            },
+            (error) => {
+                if (error.response && error.response.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('refreshToken');
+                    setUser(null);
+                    navigate('/login');
+                }
+                return Promise.reject(error);
+            }
+        );
 
-        if (refreshToken) {
-            // check if the access token is still valid
-            // you can do this by decoding the token and checking its expiration time
-            // or by making a request to the server and checking if the token is valid
-            // for simplicity, let's assume the token is still valid
-            //const user = { name: 'John Doe', email: 'john@example.com' };
-            console.log('refresh token is ' + refreshToken)
-            axios.get('http://localhost:5000/verify-token', { headers: { Authorization: `Bearer ${refreshToken}` } })
-                .then(response => {
-                    setUser(response.data.user)
-                    navigate('/')
-                    console.log(response.data.user.name);
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken) {
+            // fetch user data and set the user state
+            axios
+                .get('/me', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                })
+                .then((response) => {
+                    setUser(response.data);
                 })
                 .catch((err) => {
-
-                    localStorage.removeItem('accessToken')
+                    console.error('Error fetching user data:', err);
                 });
-
         }
-    }, []);
+
+        return () => {
+            axios.interceptors.response.eject(interceptor);
+        };
+    }, [navigate]);
 
     const login = async (email: string, password: string) => {
-        // console.log(await loginUser(email, password))
-        const response = await loginUser(email, password);
-        // console.log('This is the login ', + response);
-        setUser(response.user);
-        localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
-        navigate('/')
-
+        try {
+            const response = await loginUser(email, password);
+            setUser(response.user);
+            localStorage.setItem('accessToken', response.accessToken);
+            localStorage.setItem('refreshToken', response.refreshToken);
+            navigate('/');
+        } catch (err) {
+            console.error('Error logging in:', err);
+            // Handle error (e.g. show error message to user)
+        }
     };
 
     const signup = async (name: string, email: string, password: string) => {
-        const response = await signupUser(name, email, password);
-        setUser(response.user);
-        localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
+        try {
+            const response = await signupUser(name, email, password);
+            setUser(response.user);
+            localStorage.setItem('accessToken', response.accessToken);
+            localStorage.setItem('refreshToken', response.refreshToken);
+            navigate('/');
+        } catch (err) {
+            console.error('Error signing up:', err);
+            // Handle error (e.g. show error message to user)
+        }
     };
 
     const logout = async () => {
-        await logoutUser();
-        setUser(null);
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        navigate('/login')
+        try {
+            await logoutUser();
+            setUser(null);
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            navigate('/login');
+        } catch (err) {
+            console.error('Error logging out:', err);
+            // Handle error (e.g. show error message to user)
+        }
     };
-
     return (
         <AuthContext.Provider value={{ user, login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
 const useAuth = (): AuthContextData => useContext(AuthContext);
 
 export { AuthProvider, useAuth };

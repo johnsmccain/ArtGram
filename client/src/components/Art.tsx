@@ -56,7 +56,7 @@ const Art = ({ art }: any) => {
 									className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
 									rel="noreferrer">
 									<BsFillArrowUpRightCircleFill />
-									{art.desc.slice(8)}
+									{art.description.slice(8)}
 								</a>
 							}
 							{art.user === User.name && (

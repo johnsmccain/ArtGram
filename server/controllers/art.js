@@ -22,6 +22,28 @@ class ArtController {
     //{ message: 'Art posted successfully' });
   }
 
+  static async getAllArts(req, res) {
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 20;
+    const allArts = await Art.find({})
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ createdAt: 'desc' })
+      .populate('postedBy', 'name')
+      .populate('comments', 'text');
+    res.status(200).send({ arts: allArts });
+  }
+
+  static async getArt(req, res) {
+    const artId = req.params.id;
+    const art = await Art.findOne({ _id: artId });
+    if (art) {
+      res.status(200).send({ art });
+    } else {
+      res.status(401).json({ error: 'Does not exist' });
+    }
+  }
+
   static async myArts(req, res) {
     const allArts = await Art.find({ postedBy: req.userId });
     res.status(200).send(allArts);

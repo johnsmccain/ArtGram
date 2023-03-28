@@ -16,20 +16,23 @@ router.post('/login', AuthController.logIn);
 router.delete('/logout', isLoggedIn, AuthController.logOut);
 router.post('/refresh', refreshAccessToken);
 
-router.get('/arts', isLoggedIn, ArtController.myArts);
+router.get('/arts', isLoggedIn, ArtController.getAllArts);
 router.post('/art', isLoggedIn, ArtController.postArt);
+router.get('/arts/:id', isLoggedIn, ArtController.getArt);
 router.delete('/arts/:id', isLoggedIn, ArtController.deleteArt);
 router.put('/arts/:id/like', isLoggedIn, ArtController.like);
 router.put('/arts/:id/unlike', isLoggedIn, ArtController.unlike);
 router.post('/arts/:id/comment', isLoggedIn, ArtController.comment);
-router.get('/arts/:category', isLoggedIn, ArtController.getByCategory);
+router.get('/arts/category/:category', isLoggedIn, ArtController.getByCategory);
 
-router.get('/users/:id', UsersController.getUser);
+router.get('/me', isLoggedIn, UsersController.getMe);
+router.get('/arts/me', isLoggedIn, ArtController.myArts);
+router.get('/user/:id', UsersController.getUser);
 router.get('/users', UsersController.getAllUsers);
 router.get('/user/likes', isLoggedIn, UsersController.myLikes);
 
-router.patch('/users/:id/follow', isLoggedIn, UsersController.follow);
-router.patch('/users/:id/unfollow', isLoggedIn, UsersController.unfollow);
+router.patch('/user/:id/follow', isLoggedIn, UsersController.follow);
+router.patch('/user/:id/unfollow', isLoggedIn, UsersController.unfollow);
 
 router.get('/verify-token', AuthController.verifyToken);
 router.get('/refresh-token', AuthController.refreshToken);
