@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../containers/Layout";
 import { arts as artG } from "../data";
+import { User } from "../types";
 
+interface profileProps {
+	user: User;
+}
 
 const activeBtnStyles =
 	"bg-red-500 text-white font-bold p-2 rounded-full outline-none w-20";
 const notActiveBtnStyles =
 	"bg-primary mr-4  text-black font-bold p-2 rounded-full w-20 outline-none";
 
-const profile = ({ user }) => {
+
+
+const profile: React.FC<profileProps> = ({ user }) => {
 	const [text, setText] = useState("Created");
 	const [activeBtn, setActiveBtn] = useState("created");
 	const [arts, setArts] = useState(artG);
@@ -28,12 +34,12 @@ const profile = ({ user }) => {
 				<div className="relative flex flex-col mb-7">
 					<div className="flex flex-col justify-center items-center">
 						<img
-							src={user?.image}
+							src={user?.profileImage}
 							alt="user"
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover"
 						/>
 						<img
-							src={user?.image}
+							src={user?.profileImage}
 							alt="user"
 							className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover"
 						/>

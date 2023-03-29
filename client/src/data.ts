@@ -110,9 +110,11 @@ export const arts = [
 ];
 
 export const categories = [
-  { name: 'nature' },
-  { name: 'cars' },
-  { name: 'tradition' },
-  { name: 'culture' },
-  { name: 'dress' },
+  { name: 'painting' },
+  { name: 'sculpture' },
+  { name: 'literature' },
+  { name: 'architecture' },
+  { name: 'cinema' },
+  { name: 'music' },
+  { name: 'theatre' },
 ];

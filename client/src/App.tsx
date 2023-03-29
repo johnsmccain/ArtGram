@@ -1,14 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { PrivateRoute } from './components';
 import { Home, Login, Register, HomePage, LoginPage, SignupPage } from './pages';
 
 function App() {
+	const { user } = useAuth();
 	return (
 		<Routes>
 			<Route path="/*" element={
 				<PrivateRoute>
-					<Home />
+					<Home user={user} />
 				</PrivateRoute>
 			} />
 			<Route path="/login" element={<Login />} />

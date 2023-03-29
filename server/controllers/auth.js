@@ -101,6 +101,7 @@ class AuthController {
   }
 
   static async refreshToken(req, res) {
+    console.log('refreshing token ' + req.headers);
     try {
       const refreshToken = req.cookies['refreshToken'];
       if (!refreshToken) {
@@ -121,7 +122,7 @@ class AuthController {
         }
       ); // generate new access token
 
-      return res.send({ accessToken, userId }); // send new access token
+      return res.send({ accessToken, user }); // send new access token
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: 'Internal server' });

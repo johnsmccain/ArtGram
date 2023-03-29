@@ -4,21 +4,20 @@ import { useParams } from "react-router-dom";
 import Layout from "./Layout";
 
 import { allArts } from "../api/artApi";
+import { Art } from "../types";
 
 
 const Feed = () => {
 
-
-	const { categoryId } = useParams();
-	console.log(categoryId)
-	const [arts, setArts] = useState([]);
+	const { category } = useParams();
+	const [arts, setArts] = useState<Art>();
 	useEffect(() => {
 		const fetchArts = async () => {
 			try {
 				const arts = await (await allArts()).arts;
-				if (categoryId) {
+				if (category) {
 					const filteredCategory = arts.filter(
-						(art) => art.category === categoryId
+						(art) => art.category === category
 					);
 					setArts(filteredCategory);
 				} else {
@@ -29,7 +28,7 @@ const Feed = () => {
 			}
 		};
 		fetchArts();
-	}, [categoryId]);
+	}, [category]);
 
 
 	// console.log(categoryId);

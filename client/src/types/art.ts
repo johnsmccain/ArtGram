@@ -10,5 +10,6 @@ export interface Art {
 }
 
 export interface Arts {
+  [x: string]: any;
   arts: Array<Art>;
 }

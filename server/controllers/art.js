@@ -49,6 +49,13 @@ class ArtController {
     res.status(200).send(allArts);
   }
 
+  static async getCategories(req, res) {
+    const allArts = await Art.find({});
+    const categories = allArts.map((art) => art.category);
+    const uniqueCategories = [...new Set(categories)];
+    res.status(200).send(uniqueCategories);
+  }
+
   static async getByCategory(req, res) {
     const allArts = await Art.find({
       category: req.param.category,

@@ -14,7 +14,7 @@ const Layout = ({ gallery }: any) => {
 	return (
 		<Masonry className="flex animate-slide-fwd" breakpointCols={breakPoint}>
 			{gallery?.map((art: any) => (
-				<Art key={art?.id} art={art} className="w-max" />
+				<Art key={art?._id} art={art} className="w-max" />
 			))}
 		</Masonry>
 	);
