@@ -14,7 +14,7 @@ const notActiveBtnStyles =
 
 
 
-const profile: React.FC<profileProps> = ({ user }) => {
+const Profile: React.FC<profileProps> = ({ user }) => {
 	const [text, setText] = useState("Created");
 	const [activeBtn, setActiveBtn] = useState("created");
 	const [arts, setArts] = useState(artG);
@@ -82,4 +82,4 @@ const profile: React.FC<profileProps> = ({ user }) => {
 	);
 };
 
-export default profile;
+export default Profile;

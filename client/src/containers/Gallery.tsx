@@ -40,7 +40,7 @@ const Gallery: React.FC<GalleryProps> = ({ user }) => {
 					<Route path="/category/:category" element={<Feed />} />
 					<Route
 						path="/art/:artId"
-						element={<ArtDetail user={user && user} art={arts} />}
+						element={<ArtDetail User={user && user} allArt={arts} />}
 					/>
 					<Route path="/post" element={<CreateArt />} />
 					<Route path="/search" element={<Search searchTerm={searchTerm} />} />

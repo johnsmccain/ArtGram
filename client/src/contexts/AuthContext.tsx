@@ -142,7 +142,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const accessToken = localStorage.getItem("accessToken");
         if (accessToken) {
             axios
-                .get("/verify-token")
+                .get("/refresh")
                 .then((response) => {
                     setUser(response.data.user);
                     navigate("/");

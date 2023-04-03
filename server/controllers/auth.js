@@ -31,7 +31,11 @@ class AuthController {
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '7d' }
       );
-      res.cookie('refreshToken', refreshToken, { httpOnly: true });
+      res.cookie('refreshToken', refreshToken, {
+        // httpOnly: true,
+        expiresIn: '7d',
+        sameSite: 'lax',
+      });
       res.setHeader('Authorization', `Bearer ${accessToken}`);
       res.status(200).send({
         accessToken,

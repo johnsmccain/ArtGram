@@ -3,6 +3,9 @@ import axios from 'axios';
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5000', // replace with your server's URL
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 axiosInstance.interceptors.request.use(
@@ -24,20 +27,17 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem('refreshToken');
-      return axios
-        .post('/refresh', {
-          refreshToken,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            return axios(originalRequest);
-          }
-        });
+      console.log('refreshing token with ' + refreshToken);
+      return axiosInstance.get('/refresh').then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem('accessToken', response.data.accessToken);
+          localStorage.setItem('refreshToken', response.data.refreshToken);
+          return axiosInstance(originalRequest);
+        }
+      });
     }
 
     // if (error.response && error.response.status === 401) {

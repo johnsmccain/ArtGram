@@ -14,7 +14,7 @@ router.get('/', sayHello);
 router.post('/signup', UsersController.createUser);
 router.post('/login', AuthController.logIn);
 router.delete('/logout', isLoggedIn, AuthController.logOut);
-router.post('/refresh', refreshAccessToken);
+router.get('/refresh', refreshAccessToken);
 
 router.get('/arts/category', isLoggedIn, ArtController.getCategories);
 

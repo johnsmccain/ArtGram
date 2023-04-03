@@ -1,3 +1,4 @@
+import { useAuth } from './contexts';
 import pic1 from './images/0.png';
 import pic2 from './images/01.png';
 import pic3 from './images/02.png';

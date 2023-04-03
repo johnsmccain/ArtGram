@@ -16,7 +16,7 @@ const ArtDetail = ({ user }: any) => {
 		);
 		setArts(similarArts);
 	}, [artId]);
-	useEffect(() => {}, []);
+	useEffect(() => { }, []);
 
 	return (
 		<div>
@@ -51,7 +51,7 @@ const ArtDetail = ({ user }: any) => {
 							<p className="mt-3">{artDetail.desc}</p>
 						</div>
 						<Link
-							to={`/user-proile/${User.id}`}
+							to={`/user/${User.id}`}
 							className="flex gap-2 mt-5 items-center bg-white rounded-lg">
 							<img
 								src={User.image}
@@ -79,7 +79,7 @@ const ArtDetail = ({ user }: any) => {
 							))}
 						</div>
 						<div className="flex flex-wrap mt-6 gap-3">
-							<Link to={`/user-profile/${User.id}`}>
+							<Link to={`/user/${User.id}`}>
 								<img
 									src={User.image}
 									alt="user"

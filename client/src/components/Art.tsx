@@ -11,7 +11,7 @@ const Art = ({ art }: any) => {
 	const [artHover, setArtHover] = useState(false);
 	const [likeArt, setLikeArt] = useState(false);
 	const navigate = useNavigate();
-	let liked = art?.likes.filter((item: any) => item?.id === User.id);
+	let liked = art?.likes.filter((item: any) => item?._id === User.id);
 	liked = liked.length > 0 ? liked : [];
 	// console.log(liked);
 	return (
@@ -19,7 +19,7 @@ const Art = ({ art }: any) => {
 			<div
 				onMouseEnter={() => setArtHover(true)}
 				onMouseLeave={() => setArtHover(false)}
-				onClick={() => navigate(`/art-detail/${art.id}`)}
+				onClick={() => navigate(`/art/${art._id}`)}
 				className="relative cursor-zoom-in hover:shadow-md w-auto rounded-lg transition-all overflow-hidden ease-in-out duration-500">
 				{art?.image && (
 					<img src={art.image} alt="art" className="rounded-lg w-full" />
@@ -27,7 +27,7 @@ const Art = ({ art }: any) => {
 				{artHover && (
 					<div
 						className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-1 pt-2 pb-2 z-50"
-					// style={{ height: "100%" }}
+						style={{ height: "100%" }}
 					>
 						<div className="flex items-center justify-between">
 							<div className="flex gap-2">
@@ -72,7 +72,7 @@ const Art = ({ art }: any) => {
 				)}
 			</div>
 			<Link
-				to={`/user-profile/${User.id}`}
+				to={`/user/${User.id}`}
 				className="flex items-center gap-2 mt-2">
 				<img
 					src={User.image}
